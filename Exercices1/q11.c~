@@ -1,0 +1,9 @@
+#include "graphics.h"
+#include <math.h>
+
+int main() {
+  drawLine(10, 150, 400, 150):
+  drawLine(20, 10, 20, 290);
+
+  retun 0;
+}
