@@ -18,9 +18,8 @@ int main() {
 	  y = 2*x*y + sY;
 	  x = xtemp;
 	  iteration += 1;
-      } while ((x*x + y*y < 4) && (iteration < max_iteration));
-      printf("%d \n", iteration);
-
+  } while ((x*x + y*y < 4) && (iteration < max_iteration));
+  
       setColour(colorArray[iteration%8]);
       fillRect(Px, Py, 1, 1);
     }
