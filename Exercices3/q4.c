@@ -2,7 +2,6 @@
 
 int seqProduct(int number, int toNumber) {
   int result = 1;
-
   for (int i = 0; i<=toNumber-number; i++) {
     result *= (number+i);
   }
