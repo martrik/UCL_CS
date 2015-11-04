@@ -2,12 +2,12 @@
 #include "math.h"
 
 int factorial(int i) {
-  if (i == 1) return 1;
+  if (i <= 1) return 1;
   return i*factorial(i-1);
 }
 
 int main() {
-  int number = 145;
+  int number = 40585;
   int copyNumber = number;
   int sumFactorials = 0;
 
