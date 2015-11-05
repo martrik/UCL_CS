@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 void copyString (char *to, char *from, int index) {
   to += index;
@@ -18,9 +19,7 @@ int stringLength (char *string) {
   return c - string;
 }
 
-char** readText(char **text) {
-  int lineIndex = 0;
-
+char** readText(char **text, int *lines) {
   char *line = malloc(sizeof(char)*41);
   int charIndex  = 0;
 
@@ -30,31 +29,46 @@ char** readText(char **text) {
 
   while (strcmp(word, "xxx") != 0) {
     if (charIndex+length <= 40) {
-      copyString(line+lineIndex, word, charIndex);
+      copyString(line, word, charIndex);
       charIndex += length;
-      *(line+charIndex) = ' ';
-      charIndex++;
+      if (charIndex != 40){
+        *(line+charIndex) = ' ';
+        charIndex++;
+      }
     } else {
       *(line+charIndex) = '\0';
-      *(text+lineIndex) = line; // Finish previous
-      lineIndex++;
-      charIndex = 0;
+      *(text+(*lines)++) = line; // Finish previous
 
       line = malloc(sizeof(char)*41); // Start new line
-      copyString(line+lineIndex, word, 0);
+      copyString(line, word, 0);
       charIndex = length;
+      *(line+charIndex) = ' ';
+      charIndex++;
     }
     scanf("%s", word);
     length = stringLength(word);
   }
-
   return text;
 }
 
 int main() {
-  char **text = malloc(sizeof(char*)*200);
-  readText(text);
+  int lines = 0;
+  char **text = malloc(sizeof(char*)*50);
+  readText(text, &lines);
 
-  printf("%s\n", *(text+1));
+  int columns = 3;
 
+  for (int r = 0; r<round(lines/columns); r++) {
+    for (int c = 0; c<columns; c++) {
+      char *line = *(text+(int)(round(lines/columns)*c + r));
+      if (lines >= (r+1)*(c+1)) printf("%s", line);
+      if (c < columns-1) {
+        for (int offset = stringLength(line); offset<40; offset++) {
+          printf(" ");
+        }
+        printf("   ");
+      }
+    }
+    printf("\n");
+  }
 }
