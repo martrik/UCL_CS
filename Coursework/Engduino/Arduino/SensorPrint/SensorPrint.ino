@@ -1,3 +1,7 @@
+// Martí Serra 2015
+// Engduino code that prints all the sensors' values
+// to the serial port
+
 #include <EngduinoButton.h>
 #include <EngduinoThermistor.h>
 #include <EngduinoAccelerometer.h>
@@ -15,18 +19,19 @@ void setup() {
   EngduinoButton.begin();
 }
 
-void loop() {
-  float magneField[3];
-  EngduinoMagnetometer.xyz(magneField);
-  float magneX = magneField[0];
-  float magneY = magneField[1];
-  
+void loop() {  
   float accel[3];
   EngduinoAccelerometer.xyz(accel);
   float accelX = accel[0];
   float accelY = accel[1];
   float accelZ = accel[2];
 
+  float magneField[3];
+  EngduinoMagnetometer.xyz(magneField);
+  float magneX = magneField[0];
+  float magneY = magneField[1];
+
+  // Calibrate magnetometer
   magneX = map(magneX, -100, 450, -180, 180);
   magneY = map(magneY, 250, 700, -180, 180);
   
