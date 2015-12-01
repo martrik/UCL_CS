@@ -15,7 +15,7 @@ countPositives (x:xs)
 capitalised :: String -> String
 capitalised []
   = []
-capitalised (x:[])
+capitalised [x]
   = [toUpper x]
 capitalised xs
   = capitalised(init(xs)) ++ [toLower(last(xs))]
@@ -66,4 +66,35 @@ mergeSort xs
     lastHalf'  = mergeSort $ drop half' xs
 
 
+-- Cipher
+rotor :: Int -> String -> String
+rotor n s
+  | n < 0 = "Offset must be bigger than 0"
+  | n >= length s = "Offset must be less than the length of the string"
+  | otherwise = drop n s ++ take n s
+
+makeKey :: Int -> [(Char, Char)]
+makeKey n = zip ['A'..'Z'] (rotor n ['A'..'Z'])
+
+lookUp :: Char -> [(Char, Char)] -> Char
+lookUp c [] = c
+lookUp c [x]
+  | c == fst x = snd x
+  | otherwise = c
+lookUp c (x:xs)
+  | c == fst x = snd x
+  | otherwise = lookUp c xs
+
+encipher :: Int -> Char -> Char
+encipher n c = lookUp c (makeKey n)
+
+normalise :: String -> String
+normalise [] = []
+normalise cs = filter (\c -> c `elem` ['A'..'Z'] || c `elem` ['0'..'9']) (map toUpper cs)
+
+encipherStr :: Int -> String -> String
+encipherStr n cs = map f (normalise cs)
+  where
+    f c = lookUp c keye
+    key = makeKey n
 
