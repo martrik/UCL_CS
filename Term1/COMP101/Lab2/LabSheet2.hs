@@ -78,9 +78,6 @@ makeKey n = zip ['A'..'Z'] (rotor n ['A'..'Z'])
 
 lookUp :: Char -> [(Char, Char)] -> Char
 lookUp c [] = c
-lookUp c [x]
-  | c == fst x = snd x
-  | otherwise = c
 lookUp c (x:xs)
   | c == fst x = snd x
   | otherwise = lookUp c xs
@@ -90,11 +87,11 @@ encipher n c = lookUp c (makeKey n)
 
 normalise :: String -> String
 normalise [] = []
-normalise cs = filter (\c -> c `elem` ['A'..'Z'] || c `elem` ['0'..'9']) (map toUpper cs)
+normalise cs = filter (\c -> isLetter c || isDigit c) (map toUpper cs)
 
 encipherStr :: Int -> String -> String
 encipherStr n cs = map f (normalise cs)
   where
-    f c = lookUp c keye
+    f c = lookUp c key
     key = makeKey n
 
