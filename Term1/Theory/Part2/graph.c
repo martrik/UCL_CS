@@ -11,7 +11,6 @@ const int cases=6;
 // Parser functions
 char* subString (int offset, int len, const char* input) {
   char* sub = malloc(sizeof(char)*len);
-  int input_len = strlen(input);
 
   strncpy (sub, input + offset, len);
 
@@ -148,14 +147,15 @@ int varValue(char var, int V[3]) {
 }
 
 int eval(char *nm, int edges[no_edges][2], int size, int V[3]) {
-	switch(parse(nm)) {
+  int i;
+switch(parse(nm)) {
     // Not formula
     case 0:
       return 0;
 
     // Atomic
     case 1:
-      for (int i = 0; i<no_edges; i++) {
+      for (i = 0; i<no_edges; i++) {
         if (edges[i][0] == varValue(*(nm+2), V) && edges[i][1] == varValue(*(nm+3), V)) {
           return 1;
         } 
@@ -172,7 +172,6 @@ int eval(char *nm, int edges[no_edges][2], int size, int V[3]) {
 
     // Existential
     case 4:  
-      int i;    
       for (i = 0; i<size; i++) {
         int Va[3] = {V[0], V[1], V[2]};
         Va[varCharIndex(*(nm+1))] = i;
@@ -184,7 +183,6 @@ int eval(char *nm, int edges[no_edges][2], int size, int V[3]) {
 
     // Universal
     case 5:
-      int i;
       for (i = 0; i<size; i++) {
         int Va[3] = {V[0], V[1], V[2]};
         Va[varCharIndex(*(nm+1))] = i;
