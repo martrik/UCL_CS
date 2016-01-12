@@ -18,54 +18,12 @@ int isVar(char var) {
   else return 0;
 }
 
-int parse(char *g) {
-  switch(*g) {
-     // Atomic formula
-     case 'X':
-      if (*(g+1) == '[' && isVar(*(g+2))) {
-        if (*(g+3) == ']') {
-          return 1;
-        }
-        else if (isVar(*(g+3)) && *(g+4) == ']') {
-          return 1;
-        }
-      }
-    break;
-
-    // Negated formula
-    case '-':
-      if (parse(subString(1, strlen(g)-1, g))) {
-        return 2;
-      }
-    break;
-
-    // Binary conenctor
-    case '(': 
-      if (parse(subString(1,strlen(g)-2, g)) && *(g+strlen(g)-1) == ')') {
-        return 3;
-      } break;
-
-    // Existencial formula
-    case 'E': 
-      if (isVar(*(g+1)) && parse(subString(2, strlen(g)-3, g))) return 4;
-      break;
-
-    // Universal formula
-    case 'A':
-    if (isVar(*(g+1)) && parse(subString(2, strlen(g)-3, g))) return 5;
-    break;
-
-    default: return 0;break;
-  } 
-  return 0;
-}
-
 int isBin(char c) {
   switch(c)
-  { case '>': return 1;break;
-    case 'v': return 1;break;
-    case '^': return 1;break;
-    default: return 0;break;
+  { case '>': return 1;
+    case 'v': return 1;
+    case '^': return 1;
+    default: return 0;
   }
 }
 
@@ -94,9 +52,57 @@ char* parttwo(char *g) {
   return subString(index+1,strlen(g)-index-2, g);
 }
 
+int parse(char *g) {
+  switch(*g) {
+    // Atomic formula
+    case 'X':
+      if (*(g+1) == '[' && isVar(*(g+2))) {
+        if (*(g+3) == ']') {
+          return 1;
+        }
+        else if (isVar(*(g+3)) && *(g+4) == ']') {
+          return 1;
+        }
+      }
+      break;
+
+    // Negated formula
+    case '-':
+      if (parse(subString(1, strlen(g)-1, g))) {
+        return 2;
+      }
+      break;
+
+    // Binary connector
+    case '(':
+      if (parse(partone(g)) && parse(parttwo(g)) && *(g+strlen(g)-1) == ')') {
+        return 3;
+      } 
+      break;
+
+    // Existencial formula
+    case 'E': 
+      if (isVar(*(g+1)) && parse(g+2)) {
+        return 4;
+      }
+      break;
+
+    // Universal formula
+    case 'A':
+      if (isVar(*(g+1)) && parse(g+2)) {
+        return 5;
+      }
+      break;
+
+    default: return 0;break;
+  } 
+  return 0;
+}
+
 char bin(char *g) {
   return *(g + binIndex(g));
 }
+
 
 int main() {
   char *name = malloc(Fsize);
@@ -113,7 +119,7 @@ int main() {
     default: printf("Not a formula");break;
   }
 
-  if (p==3) printf("The first part is %s, the binary connective is %c, the second part is %s", partone(name), bin(name), parttwo(name));
+  if (p==3) printf(". The first part is %s, the binary connective is %c, the second part is %s", partone(name), bin(name), parttwo(name));
 
   return(1);
 }
