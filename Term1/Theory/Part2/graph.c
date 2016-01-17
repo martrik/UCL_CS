@@ -35,7 +35,7 @@ int binIndex(char *g) {
   int bracketCount = 0;
   int indexCount = 0;
 
-  while (1) {
+  while (indexCount < strlen(g)) {
       if (*(g+indexCount) == '(') bracketCount++;
       else if (*(g+indexCount) == ')') bracketCount--;
 
@@ -60,13 +60,8 @@ int parse(char *g) {
   switch(*g) {
     // Atomic formula
     case 'X':
-      if (*(g+1) == '[' && isVar(*(g+2))) {
-        if (*(g+3) == ']') {
-          return 1;
-        }
-        else if (isVar(*(g+3)) && *(g+4) == ']') {
-          return 1;
-        }
+      if (strlen(g) == 5) {
+        if (*(g+1) == '[' && isVar(*(g+2)) && isVar(*(g+3)) && *(g+4) == ']') return 1;
       }
       break;
 
@@ -79,8 +74,8 @@ int parse(char *g) {
 
     // Binary connector
     case '(':
-      if (parse(partone(g)) && parse(parttwo(g)) && *(g+strlen(g)-1) == ')') {
-        return 3;
+      if (binIndex(g) != 0 && *(g+strlen(g)-1) == ')') {
+        if (parse(partone(g)) && parse(parttwo(g))) return 3;
       } 
       break;
 
