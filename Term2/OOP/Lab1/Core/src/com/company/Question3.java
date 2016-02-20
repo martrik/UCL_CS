@@ -16,6 +16,7 @@ public class Question3 {
         System.out.println("These are the words reversed and in sorted order: "+ reverseAndSortArray(inputWords()) +"");
     }
 
+    // Asks for an input of 10 words
     private ArrayList<String> inputWords() {
         Input in = new Input();
         ArrayList<String> list = new ArrayList<>();
@@ -31,10 +32,11 @@ public class Question3 {
                 in.next();
             }
         }
-        System.out.println(list);
+
         return list;
     }
 
+    // Reverses each word in the array and the sorts them
     private ArrayList<String> reverseAndSortArray(ArrayList<String> list) {
         for (String word : list) {
             list.set(list.indexOf(word), reverseString(word));
@@ -43,6 +45,7 @@ public class Question3 {
         return list;
     }
 
+    // Reverses a string of characters
     private String reverseString(String s) {
         String reversed = new String();
         for (int i = 1; i < s.length()+1; i++) {

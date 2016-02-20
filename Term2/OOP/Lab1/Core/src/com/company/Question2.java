@@ -18,6 +18,7 @@ public class Question2 {
 
     }
 
+    // Asks for 10 doubles
     private List<Double> inputDoubles() {
         Input in = new Input();
         List<Double> list = new ArrayList<>();
@@ -36,6 +37,7 @@ public class Question2 {
         return list;
     }
 
+    // Returns the average of a list of doubles
     private double average(List<Double> list) {
         double sum = 0;
 

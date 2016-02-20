@@ -1,16 +1,24 @@
 package com.company;
 
 /**
- * Created by Marti on 15/01/16.
+ * Created by Marti on 17/01/16.
  */
-public class Question5 {
+public class Question6 {
+    double firstDouble;
+    double secondDouble;
 
     public static void main(String[] ags) {
-        Question5 q = new Question5();
-        System.out.println("The square root of their sum is: " + q.rootOfSum(q.inputDouble(), q.inputDouble()));
+        Question6 q = new Question6();
+        q.storeValues();
     }
 
-    // Asks for one double
+    private void storeValues() {
+        firstDouble = inputDouble();
+        secondDouble = inputDouble();
+
+        System.out.println("The square root of their sum is: " + rootOfSum(firstDouble, secondDouble));
+    }
+
     public double inputDouble() {
         Input in = new Input();
 
@@ -24,3 +32,4 @@ public class Question5 {
         return Math.sqrt(first+second);
     }
 }
+

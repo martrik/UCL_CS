@@ -16,7 +16,7 @@ public class Question4 {
 
     public void start() {
         List<Double> values = generateRandom(10000);
-        System.out.println("Aftern generating 10000 random values in the range (-1,1) the smallest double has" +
+        System.out.println("After generating 10000 random values in the range (-1,1) the smallest double has" +
                 " been: "+values.get(0)+", the biggest: "+values.get(1)+" and the average: "+values.get(2)+"");
     }
 
@@ -24,20 +24,23 @@ public class Question4 {
         double smallest = 0;
         double biggest = 0;
         double sum = 0;
-        Random gene = new Random();
+        Random gen = new Random();
 
         for (int i = 0; i < n; i++) {
-            double num = gene.nextDouble();
+            double num = gen.nextDouble();
 
             // This allows us to have the negative doubles
-            if (gene.nextBoolean()) num *= -1;
+            if (gen.nextBoolean()) num *= -1;
 
+            // Checks to update biggest number
             if (num > biggest) biggest = num;
+            // Checks to update smallest number
             if (num < smallest) smallest = num;
 
             sum += num;
         }
 
-        return Arrays.asList(smallest, biggest, sum/n);
+        double average = sum/n;
+        return Arrays.asList(smallest, biggest, average);
     }
 }
