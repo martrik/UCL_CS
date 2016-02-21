@@ -80,7 +80,7 @@ class BTree():
 
 			if page == self.root:
 				new_root = self.create_root(page.middle_key())
-				l_child, = new_root.add_child(page.keys[0:middle_index], 0)
+				l_child = new_root.add_child(page.keys[0:middle_index], 0)
 				r_child = new_root.add_child(page.keys[middle_index:page.len()], 1)
 
 				# Update children
@@ -121,9 +121,8 @@ class BTree():
 			self.print_tree(child)
 
 
-tree = BTree(2)
+tree = BTree(5)
 
-for i in range(100):
+for i in range(500):
 	tree.insert_key(tree.root, Key(random.randint(1, 1000)))
 tree.print_tree(tree.root)
-print("___")
