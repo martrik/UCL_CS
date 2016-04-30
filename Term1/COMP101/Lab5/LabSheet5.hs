@@ -23,7 +23,7 @@ nextTurn board n
         putChar '\n'
         printBoard board
         putChar '\n'
-        putStrLn $ "Turn of player " ++ show (n) ++ ". Put the row followed by the number of starts that you want to get rid of."
+        putStrLn $ "Turn of player " ++ show (n) ++ ". Put the row followed by the number of stars that you want to get rid of."
         rawinput <- getLine
         let input = words rawinput
         if length input == 2

@@ -17,7 +17,7 @@ def create_heap(dic):
 def huffman(char_freq):
 	heap = create_heap(char_freq)
 
-	for _ in range(len(heap)-1):
+	while len(heap)>1:
 		parent = Node(None)
 		parent.left_child = heappop(heap)
 		parent.right_child = heappop(heap)

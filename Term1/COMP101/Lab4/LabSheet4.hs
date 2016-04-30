@@ -16,7 +16,6 @@ countPositives :: [Int] -> Int
 countPositives xs 
   = sum [1 | x <- xs, x > 0]
 
-
 prop_HalfEvens :: [Int] -> Bool
 prop_HalfEvens xs 
   = length (halfEvens xs) == length xs

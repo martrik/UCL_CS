@@ -120,7 +120,7 @@ class BTree(object):
             self.print_tree(child)
 
 
-tree = BTree(5)
+tree = BTree(3)
 
 for i in range(500):
     tree.insert_key(tree.root, Key(random.randint(1, 1000)))
